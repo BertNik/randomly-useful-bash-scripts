@@ -1,0 +1,7 @@
+if [ -z $1 ]; then
+    loc="39.96,-75.16"
+else
+    loc=$1
+fi
+
+curl -s "https://weather.com/weather/today/l/$loc"  | grep -Eo "class=\"today_nowcard-temp\"*.{255}" | grep -Eo "[0-9]{1,2}" | tr "printf \n" " " | awk '{print "temp: " $1"\n""feels like: " $2}'
